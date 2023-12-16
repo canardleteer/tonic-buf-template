@@ -1,2 +1,5 @@
 [template]
 cargo_generate_version = ">=0.9.0"
+
+# NOTE(canardleteer): Any way to specify a default?
+sub_templates = ["tonic-buf-template"]

@@ -5,9 +5,36 @@ bindings for a known `proto` file.
 
 There are faults with the overall template, but it should be functional.
 
-This is my first template, bear with me.
+This is my first template, bear with me, and see the Notes section.
+
+## Usage
+
+### Generate from Github
+
+```shell
+cargo generate gh:canardleteer/tonic-buf-template --name awesome tonic-buf-template
+```
+
+### Generate from cloned repo
+
+```shell
+# replace this with gh usage
+cargo generate --path tonic-buf-template --name awesome
+```
+
+### Validation
+
+```shell
+cd awesome
+
+# There are useful things to check in here.
+cat README.md
+```
 
 ## Notes / Faults
+
+- I've done my best to annotate the template with `TEMPLATE_` in comments
+  that are template related, and I'm still figuring out.
 
 I'd like to do a couple of things here, none of which I'm doing at the
 moment:
@@ -31,14 +58,3 @@ moment:
   it to be in `project-server`
 - Templating of `proto/buf.yaml`
 - A templated `buf.gen.yaml`
-
-## Usage
-
-```shell
-# replace this with gh usage
-cargo generate --path tonic-buf-template --name awesome
-cd awesome
-
-# There are useful things to check in here.
-cat README.md
-```
