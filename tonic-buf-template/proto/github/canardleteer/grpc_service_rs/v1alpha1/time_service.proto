@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package github.canardleteer.grpc_service_rs.v1alpha1;
+
+service SimpleTimestampService {
+  // Returns the services current timestamp with no additional information.
+  rpc WhatTimeIsIt(WhatTimeIsItRequest) returns (WhatTimeIsItResponse);
+}
+
+// Requests the current time.
+message WhatTimeIsItRequest {}
+
+// The current number of seconds since the Unix Epoch, from the
+// perspective of the service instance.
+message WhatTimeIsItResponse {
+  uint64 seconds_since_epoch = 1;
+}

@@ -1,0 +1,17 @@
+[package]
+name = "{{project-name}}-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4", features = ["derive", "env", "cargo"] }
+prost = "0.12.3"
+prost-types = "0.12.3"
+{{project-name}}-bindings = { version = "0.1.0", path = "../{{project-name}}-bindings" }
+{{project-name}}-service = { version = "0.1.0", path = "../{{project-name}}-service" }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tonic = { version = "0.10", features = ["transport", "tls", "tls-webpki-roots"] }
+tonic-health = "0.10"
+tonic-reflection = "0.10"
+tracing = "0.1.0"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }

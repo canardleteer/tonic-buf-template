@@ -1,0 +1,11 @@
+[workspace]
+
+resolver = "2"
+
+# TEMPLATE_FIXME(canardleteer): Figure out how to support n-projects here.
+members = [
+    "{{project-name}}-bindings",
+    "{{project-name}}-client",
+    "{{project-name}}-server",
+    "{{project-name}}-service"
+]

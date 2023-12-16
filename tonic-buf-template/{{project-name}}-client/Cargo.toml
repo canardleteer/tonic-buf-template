@@ -1,0 +1,13 @@
+[package]
+name = "{{project-name}}-client"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4", features = ["derive", "env", "cargo"] }
+prost = "0.12.3"
+{{project-name}}-bindings = { version = "0.1.0", path = "../{{project-name}}-bindings" }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tonic = { version = "0.10", features = ["transport", "tls", "tls-webpki-roots"] }
+tracing = "0.1"
+
