@@ -39,6 +39,8 @@ cat README.md
 I'd like to do a couple of things here, none of which I'm doing at the
 moment:
 
+- `cargo-generate` topic
+- Github Workflow for validating the template
 - Figure out how to support n-services, not just one.
   - We're close.
 - Use `buf` with the `prost` plugin, for better discovery of generic
