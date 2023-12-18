@@ -18,6 +18,10 @@ buf format -d proto
 cargo clean
 ```
 
+## Getting Started
+
+It's worth checking out the `tonic` [upstream documentation on configuring your IDE](https://github.com/hyperium/tonic#getting-started).
+
 ## Build the Docker image
 
 ```shell
