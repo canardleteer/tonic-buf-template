@@ -1,0 +1,83 @@
+on: [push, pull_request]
+
+name: validate
+
+env:
+  # This must match the one in the template's `rust-toolchain.toml`
+  RUST_TOOLCHAIN_VERSION: 1.74.1
+
+  # Keep this around, if needed.
+  CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
+
+  # This can really be whatever is a valid Rust package name.
+  REIFIED_TEMPLATE: awesome
+
+jobs:
+  cargo-generate-then-validate:
+    name: validate a generated template
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ env.RUST_TOOLCHAIN_VERSION }}
+          override: true
+          components: clippy, rustfmt
+          default: true
+
+      # NOTE(canardleteer): This is really slow, and we should try to speed that up.
+      #                     Consider a cache or rust-cache.
+      - name: install cargo-generate
+        run: cargo install cargo-generate
+
+      - name: generate a template
+        run: cargo generate --path tonic-buf-template --name ${REIFIED_TEMPLATE}
+
+      - name: install protoc
+        run: sudo apt install -y protobuf-compiler
+
+      - name: setup buf
+        uses: bufbuild/buf-setup-action@v1.28.1
+        with:
+          github_token: ${{ github.token }}
+
+      # Rust Lints
+      - name: "[template output] cargo check"
+        uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --manifest-path ${{ env.REIFIED_TEMPLATE }}/Cargo.toml
+      - name: "[template output] cargo fmt"
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --manifest-path ${{ env.REIFIED_TEMPLATE }}/Cargo.toml --all -- --check
+      - name: "[template output] cargo clippy"
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --manifest-path ${{ env.REIFIED_TEMPLATE }}/Cargo.toml -- -D warnings
+
+      # Proto Lints
+      - name: "[template output] buf lint"
+        uses: bufbuild/buf-lint-action@v1
+        with:
+          input: ${{ env.REIFIED_TEMPLATE }}/proto
+      - name: "[template output] buf format"
+        run: buf format -d --exit-code ${REIFIED_TEMPLATE}/proto
+
+      # Docker Lints
+      - name: "[template output] docker build"
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ env.REIFIED_TEMPLATE }}
+          file: ${{ env.REIFIED_TEMPLATE }}/docker/Dockerfile.${{ env.REIFIED_TEMPLATE }}
+          tags: ${{ env.REIFIED_TEMPLATE }}:latest
+          push: false
+      - name: "[template output] validate server binary --help in image"
+        run: docker run --rm ${{ env.REIFIED_TEMPLATE }}:latest --help
+      - name: "[template output] validate client binary --help in image"
+        run: docker run --rm -e USE_CLIENT_BINARY=true ${{ env.REIFIED_TEMPLATE }}:latest --help
