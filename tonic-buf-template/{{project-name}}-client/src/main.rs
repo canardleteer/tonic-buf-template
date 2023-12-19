@@ -11,6 +11,10 @@ use {{crate_name}}_bindings::svc_v1alpha1_decl::{
 #[clap(author, version, about, long_about = None)]
 struct Cli {
     // Server Arguments
+
+    // TEMPLATE_NOTE(canardleteer): We need to rationalize a little more why we
+    //                              call the environment variable a SERVER, and
+    //                              the command line option "service."
     #[clap(
         help_heading = "client",
         short = 'a',
