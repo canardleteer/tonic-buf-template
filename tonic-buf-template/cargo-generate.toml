@@ -1,0 +1,19 @@
+[placeholders.rust_channel]
+type = "string"
+prompt = "What version of Rust do you wish to use in this project?"
+default = "1.74.1"
+# NOTE(canardleteer): I'm not going to write a regex for Rust Channels, but we
+#                     could enforce one.
+
+[placeholders.rust_profile]
+type = "string"
+prompt = "What rustup profile do you wish to use in this project?"
+choices = ["minimal", "default", "complete"]
+default = "default"
+
+
+# TODO(canardleteer):
+# - generated workflows
+#  - do you want some generated github workflows?
+# - protobuf location instead of in-repo
+# - ... many more in the README

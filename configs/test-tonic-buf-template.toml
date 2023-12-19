@@ -1,0 +1,8 @@
+# NOTE(canardleteer): Thes values, in general, need to be the same as in
+#                     `.github/workflows`. Alternatively, we could let them
+#                     drift apart, or we could fully integrate with GitHub and
+#                     make them environment variables, but I'm not ready to do
+#                     that yet.
+[values]
+rust_channel = "1.74.1"
+rust_profile = "default"
