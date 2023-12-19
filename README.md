@@ -32,6 +32,14 @@ cd awesome
 cat README.md
 ```
 
+## CI Testing
+
+We generally just test that the template can build, and the generated template
+itself, is buildable. We don't test variation from the default values.
+
+I'd be okay with adding a matrix, of some slight variations beyond the
+defaults.
+
 ## Notes / Faults
 
 - I've done my best to annotate the template with `TEMPLATE_` in comments

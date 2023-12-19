@@ -40,7 +40,7 @@ jobs:
       - name: "generate a template [cache workaround pre-step]"
         run: mv ${{ env.REIFIED_TEMPLATE }} temp-build-cache || echo "cached workspace target not found"
       - name: "generate a template"
-        run: cargo generate -v --path tonic-buf-template --name ${REIFIED_TEMPLATE}
+        run: cargo generate -v --config configs/test-tonic-buf-template.toml --path tonic-buf-template --name ${REIFIED_TEMPLATE}
       - name: "generate a template [cache workaround post-step]"
         run: mv temp-build-cache/target ${{ env.REIFIED_TEMPLATE }} || echo "cached workspace target not found"
 
@@ -78,6 +78,7 @@ jobs:
         run: buf format -d --exit-code ${REIFIED_TEMPLATE}/proto
 
       # Docker Lints
+      # NOTE(canardleteer): I'm not quite up for the experimental build cache yet.
       - name: "[template output] docker build"
         uses: docker/build-push-action@v5
         with:
