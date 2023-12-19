@@ -5,6 +5,7 @@ name: validate
 env:
   # This must match the one in the template's `rust-toolchain.toml`
   RUST_TOOLCHAIN_VERSION: 1.74.1
+  CARGO_GENERATE_VERSION: 0.19.0
 
   # Keep this around, if needed.
   CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
@@ -28,13 +29,20 @@ jobs:
           components: clippy, rustfmt
           default: true
 
-      # NOTE(canardleteer): This is really slow, and we should try to speed that up.
-      #                     Consider a cache or rust-cache.
-      - name: install cargo-generate
-        run: cargo install cargo-generate
+      - name: rust cache setup
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "${{ env.REIFIED_TEMPLATE }} -> target"
 
-      - name: generate a template
-        run: cargo generate --path tonic-buf-template --name ${REIFIED_TEMPLATE}
+      - name: install cargo-generate
+        run: cargo install cargo-generate --version ${{ env.CARGO_GENERATE_VERSION }} --locked
+
+      - name: "generate a template [cache workaround pre-step]"
+        run: mv ${{ env.REIFIED_TEMPLATE }} temp-build-cache || echo "cached workspace target not found"
+      - name: "generate a template"
+        run: cargo generate -v --path tonic-buf-template --name ${REIFIED_TEMPLATE}
+      - name: "generate a template [cache workaround post-step]"
+        run: mv temp-build-cache/target ${{ env.REIFIED_TEMPLATE }} || echo "cached workspace target not found"
 
       - name: install protoc
         run: sudo apt install -y protobuf-compiler
