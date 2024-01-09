@@ -48,6 +48,7 @@ defaults.
 I'd like to do a couple of things here, none of which I'm doing at the
 moment:
 
+- Pull in some newer changes from [grpc-service-rs](https://github.com/canardleteer/grpc-service-rs).
 - Default Github Actions
 - `cargo-generate` topic
 - Figure out how to support n-services, not just one.
