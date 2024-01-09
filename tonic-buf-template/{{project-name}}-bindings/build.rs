@@ -18,6 +18,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
         .build_server(true)
         .build_client(true)
+        .generate_default_stubs(true)
         .file_descriptor_set_path(descriptor_path)
         .compile(
             &["github/canardleteer/grpc_service_rs/v1alpha1/time_service.proto"],
