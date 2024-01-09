@@ -50,7 +50,6 @@ moment:
 
 - Pull in some newer changes from [grpc-service-rs](https://github.com/canardleteer/grpc-service-rs).
 - Default Github Actions
-- `cargo-generate` topic
 - Figure out how to support n-services, not just one.
   - We're close.
 - Use `buf` with the `prost` plugin, for better discovery of generic
