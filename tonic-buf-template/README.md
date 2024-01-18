@@ -33,7 +33,7 @@ docker build -t {{project-name}}:latest -f ./docker/Dockerfile.{{project-name}} 
 ```shell
 docker network create {{project-name}}-network
 docker run --rm -it -d \
-    --name {{project-name}}_server \
+    --name {{project-name}}-server \
     --net {{project-name}}-network \
     -p 50051:50051 \
     {{project-name}}:latest
@@ -41,9 +41,9 @@ docker run --rm -it -d \
 docker run --rm -it \
     --net {{project-name}}-network \
     -e USE_CLIENT_BINARY=true \
-    {{project-name}}:latest -a {{project-name}}_server
+    {{project-name}}:latest -a {{project-name}}-server
 
 # cleanup
-docker rm -f {{project-name}}_server
+docker rm -f {{project-name}}-server
 docker network remove {{project-name}}-network
 ```
