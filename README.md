@@ -50,10 +50,13 @@ moment:
 
 - Pull in some newer changes from [grpc-service-rs](https://github.com/canardleteer/grpc-service-rs).
 - Default Github Actions
+  - Had a hard time getting this to work with the templating engine, seemed to
+    ignore the directory.
 - Figure out how to support n-services, not just one.
-  - We're close.
+  - We're close internally.
 - Use `buf` with the `prost` plugin, for better discovery of generic
   protos, instead of a static one.
+  - Optionally.
   - And remove `protoc` from the Dockerfile
 - Add stock features to the prost output, potentially as features.
 - Add some stock useful Layers (w3c tracing)
