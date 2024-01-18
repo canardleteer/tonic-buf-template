@@ -25,11 +25,10 @@ struct Cli {
     service_addr: String,
 
     #[clap(
-        help_heading = "server",
+        help_heading = "client",
         short = 'p',
         long,
         default_value = "50051",
-        help_heading = "client",
         env = "TARGET_SERVER_PORT"
     )]
     service_port: u16,
