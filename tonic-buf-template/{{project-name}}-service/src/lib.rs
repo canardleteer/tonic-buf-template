@@ -1,3 +1,11 @@
+//! TEMPLATE_NOTE(canardleteer): Overall, it's better if you build your
+//!                              Service, stand alone from any Web Service
+//!                              Framework implementation. We do this for
+//!                              brevity here, but, you should consider making
+//!                              the Service itself gRPC agnostic, and then
+//!                              offering various `mod grpc::version` adapters
+//!                              for the specific Framework + RPC API you are
+//!                              offering.
 use std::time::{SystemTime, UNIX_EPOCH};
 use tonic::{Request, Response, Status};
 use tracing::instrument;
