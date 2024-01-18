@@ -18,7 +18,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
         .build_server(true)
         .build_client(true)
-        .generate_default_stubs(true)
+        // TEMPLATE_WARNING(canardleteer): Using the default stubs will using
+        //                                 Streaming endpoints "harder." You
+        //                                 loose some nice prebuilt `type`
+        //                                 interfaces, that are used in various
+        //                                 tonic tutorial documents.
+        //
+        //                                 For that reason, I have disabled it
+        //                                 for novice framework users.
+        .generate_default_stubs(false)
         .file_descriptor_set_path(descriptor_path)
         .compile(
             &["github/canardleteer/grpc_service_rs/v1alpha1/time_service.proto"],
