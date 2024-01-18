@@ -32,7 +32,6 @@ struct Cli {
         short = 'p',
         long,
         default_value = "50051",
-        help_heading = "server",
         env = "SERVER_LISTEN_PORT"
     )]
     listen_port: u16,
