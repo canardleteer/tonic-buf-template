@@ -1,7 +1,7 @@
 [placeholders.rust_channel]
 type = "string"
 prompt = "What version of Rust do you wish to use in this project?"
-default = "1.75.0"
+default = "1.76.0"
 # NOTE(canardleteer): I'm not going to write a regex for Rust Channels, but we
 #                     could enforce one.
 
