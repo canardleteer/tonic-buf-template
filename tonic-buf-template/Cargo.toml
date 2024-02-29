@@ -9,3 +9,16 @@ members = [
     "{{project-name}}-server",
     "{{project-name}}-service"
 ]
+
+[workspace.dependencies]
+clap = { version = "4", features = ["derive", "env", "cargo"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tokio-stream = { version = "0.1", features = ["net"] }
+tonic = { version = "0.10", features = ["transport", "tls", "tls-webpki-roots"] }
+tonic-build = "0.10.2"
+tonic-health = "0.10.2"
+tonic-reflection = "0.10.2"
+prost = "0.12.3"
+prost-types = "0.12.3"
+tracing = "0.1.0"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
