@@ -4,8 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-prost = "0.12.3"
 {{project-name}}-bindings = { version = "0.1.0", path = "../{{project-name}}-bindings" }
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-tonic = "0.10.2"
-tracing = "0.1.0"
+
+tokio.workspace = true
+tonic.workspace = true
+prost.workspace = true
+tracing.workspace = true
