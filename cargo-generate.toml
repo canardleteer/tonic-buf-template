@@ -1,7 +1,7 @@
 [template]
 # NOTE(canardleteer): This is pinned to the version I'm using. You may find
 #                     that older versions do work just fine.
-cargo_generate_version = ">=0.19.0"
+cargo_generate_version = ">=0.20.0"
 
 # NOTE(canardleteer): Any way to specify a default?
 sub_templates = ["tonic-buf-template"]
