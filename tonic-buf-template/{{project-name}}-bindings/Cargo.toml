@@ -12,3 +12,4 @@ tracing.workspace = true
 
 [build-dependencies]
 tonic-build.workspace = true
+walkdir = "2.5.0"
