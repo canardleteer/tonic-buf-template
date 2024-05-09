@@ -4,7 +4,7 @@ name: validate
 
 env:
   # This must match the one in the template's `rust-toolchain.toml`
-  RUST_TOOLCHAIN_VERSION: 1.77.2
+  RUST_TOOLCHAIN_VERSION: 1.78.0
   CARGO_GENERATE_VERSION: 0.20.0
 
   # Keep this around, if needed.
