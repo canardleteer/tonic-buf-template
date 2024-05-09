@@ -1,6 +1,9 @@
 use std::{os::unix::fs::PermissionsExt, path::PathBuf};
 
+use walkdir::WalkDir;
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let proto_root = "../proto";
     let out_dir = std::env::var("OUT_DIR")?;
     let out_dir_path = std::path::Path::new(&out_dir);
     let metadata = out_dir_path.metadata()?;
@@ -15,6 +18,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Build a `FileDescriptorSet`
     let descriptor_path = PathBuf::from(out_dir).join("_descriptor.bin");
 
+    // Grab all the proto files.
+    //
+    // TEMPLATE_NOTE(canardleteer): You may wish to filter out some files, etc.
+    let mut proto_files = vec![];
+    for entry in WalkDir::new(proto_root)
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| {
+            e.path()
+                .extension()
+                .map_or(false, |ext| ext.to_str().unwrap() == "proto")
+        })
+    {
+        proto_files.push(entry.path().to_owned());
+    }
+
     tonic_build::configure()
         .build_server(true)
         .build_client(true)
@@ -28,9 +47,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         //                                 for novice framework users.
         .generate_default_stubs(false)
         .file_descriptor_set_path(descriptor_path)
-        .compile(
-            &["github/canardleteer/grpc_service_rs/v1alpha1/time_service.proto"],
-            &["../proto"],
-        )?;
+        .compile(&proto_files, &[proto_root])?;
     Ok(())
 }
